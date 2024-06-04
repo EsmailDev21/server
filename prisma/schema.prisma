@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  email         String         @unique
+  role          Role           @default(CUSTOMER)
+  password      String
+  name          String?
+  city          String?
+  address       String?
+  phoneNumber   String?
+  specialNote   String?
+  reviews       Review[]
+  bookings      Booking[]
+  services      Service[]
+  isBanned      Boolean
+  gender        Gender
+  photoUrl      String?
+  notifications Notification[]
+  //reservations Reservation[] @relation("ClientReservations")
+}
+
+enum Gender {
+  KID
+  MALE
+  FEMALE
+}
+
+enum Role {
+  ADMIN
+  BARBER
+  CUSTOMER
+}
+
+model Service {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  price      Float
+  duration   String
+  note       String?
+  reduction  Int       @default(0)
+  bookings   Booking[]
+  reviews    Review[]
+  barber     User      @relation(fields: [barberId], references: [id])
+  barberId   String    @db.ObjectId
+  imageUrl   String?
+  genderType Gender?   @default(MALE)
+}
+
+model Review {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  rating         Int
+  comment        String
+  createdAt      DateTime @default(now())
+  service        Service  @relation(fields: [serviceId], references: [id])
+  serviceId      String   @db.ObjectId
+  reviewPoster   User     @relation(fields: [reviewPosterId], references: [id])
+  reviewPosterId String   @db.ObjectId
+}
+
+model Booking {
+  id         String            @id @default(auto()) @map("_id") @db.ObjectId
+  date       DateTime
+  status     ReservationStatus @default(PENDING)
+  note       String
+  service    Service           @relation(fields: [serviceId], references: [id])
+  serviceId  String            @db.ObjectId
+  customer   User              @relation(fields: [customerId], references: [id])
+  customerId String            @db.ObjectId
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  REFUSED
+  CANCELLED_BY_CUSTOMER
+  CANCELLED_BY_BARBER
+  DONE
+}
+
+model Notification {
+  id          String            @id @default(auto()) @map("_id") @db.ObjectId
+  title       String?
+  content     String?
+  recipient   User              @relation(fields: [recipientId], references: [id])
+  recipientId String            @db.ObjectId
+  sentAt      DateTime?         @default(now())
+  type        NotificationType?
+  isUnread    Boolean?          @default(true)
+}
+
+enum NotificationType {
+  BOOKING_CREATED
+  BOOKING_ACCEPTED
+  BOOKING_REFUSED
+  BOOKING_CANCELLED
+  BOOKING_DONE
+  PROFILE_UPDATED
+  USER_UNBANNED
+  REVIEW_RECEIVED
+  SERVICE_CREATED
+  USER_JOINED
+  SERVICE_DELETED
+  SERVICE_UPDATED
+}
