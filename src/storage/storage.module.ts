@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { StorageController } from './storage.controller';
 import { MulterModule } from '@nestjs/platform-express';
 
-import { GridFsMulterConfigService } from './gridfs-multer-config.service';
 @Module({
   imports: [
     MulterModule.registerAsync({
@@ -12,6 +11,6 @@ import { GridFsMulterConfigService } from './gridfs-multer-config.service';
     }),
   ],
   controllers: [StorageController],
-  providers: [GridFsMulterConfigService],
+  providers: [],
 })
 export class StorageModule {}
