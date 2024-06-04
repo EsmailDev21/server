@@ -13,6 +13,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import * as path from 'path';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { NotificationModule } from './notification/notification.module';
+import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [
     UserModule,
@@ -26,6 +27,7 @@ import { NotificationModule } from './notification/notification.module';
     }),
     AnalyticsModule,
     NotificationModule,
+    MongooseModule.forRoot(process.env.DATABASE_URL, {}),
   ],
   controllers: [],
   providers: [
