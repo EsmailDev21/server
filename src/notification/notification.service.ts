@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { Notification, Prisma } from '@prisma/client';
-import { NotificationGateway } from './notification.gateway';
+//import { NotificationGateway } from './notification.gateway';
 
 @Injectable()
 export class NotificationService {
   constructor(
     private prisma: PrismaService,
-    private notificationGateway: NotificationGateway,
-  ) {}
+  ) //private notificationGateway: NotificationGateway,
+  {}
 
   async createNotification(data: Prisma.NotificationCreateInput) {
     const notification = await this.prisma.notification.create({ data });
-    this.notificationGateway.server.emit('newNotification', notification);
+    // this.notificationGateway.server.emit('newNotification', notification);
     return notification;
   }
 
