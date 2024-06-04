@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ReviewService } from './review.service';
-import { ReviewCreateDTO, ReviewUpdateDTO } from 'src/types';
+import { ReviewCreateDTO, ReviewUpdateDTO } from '../types';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('reviews')

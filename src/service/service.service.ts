@@ -5,7 +5,7 @@ import {
   ServiceCreateDTO,
   ServiceResponseDTO,
   ServiceUpdateDTO,
-} from 'src/types';
+} from '../types';
 
 @Injectable()
 export class ServiceService {

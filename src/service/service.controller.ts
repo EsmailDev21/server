@@ -13,7 +13,7 @@ import {
   ServiceCreateDTO,
   ServiceUpdateDTO,
   ServiceResponseDTO,
-} from 'src/types';
+} from '../types';
 import { Role, Service } from '@prisma/client';
 import { Roles } from 'src/auth/decorators/role.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';

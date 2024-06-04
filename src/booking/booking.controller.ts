@@ -13,7 +13,7 @@ import {
   BookingCreateDTO,
   BookingUpdateDTO,
   ReservationStatus,
-} from 'src/types';
+} from '../types';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Roles } from 'src/auth/decorators/role.decorator';
 import { Role } from '@prisma/client';
@@ -57,7 +57,7 @@ export class BookingController {
   @Put('change-status/:id')
   async changeBookingStatus(
     @Param('id') id: string,
-    @Body() data: {status:ReservationStatus},
+    @Body() data: { status: ReservationStatus },
   ) {
     return this.bookingService.changeBookingStatus(data, id);
   }

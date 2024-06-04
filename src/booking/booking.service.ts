@@ -2,7 +2,7 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { Booking, ReservationStatus } from '@prisma/client';
 import { NotificationService } from 'src/notification/notification.service';
 import { PrismaService } from 'src/prisma.service';
-import { BookingCreateDTO, BookingUpdateDTO } from 'src/types';
+import { BookingCreateDTO, BookingUpdateDTO } from '../types';
 
 @Injectable()
 export class BookingService {

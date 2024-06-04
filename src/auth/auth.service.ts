@@ -6,7 +6,7 @@ import {
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { UserCreateDTO } from 'src/types';
+import { UserCreateDTO } from '../types';
 
 export class LoginDTO {
   email: string;
