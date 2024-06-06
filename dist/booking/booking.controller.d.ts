@@ -1,5 +1,5 @@
 import { BookingService } from './booking.service';
-import { BookingCreateDTO, BookingUpdateDTO, ReservationStatus } from 'src/types';
+import { BookingCreateDTO, BookingUpdateDTO, ReservationStatus } from '../types';
 export declare class BookingController {
     private readonly bookingService;
     constructor(bookingService: BookingService);

@@ -11,13 +11,12 @@ const common_1 = require("@nestjs/common");
 const notification_service_1 = require("./notification.service");
 const notification_controller_1 = require("./notification.controller");
 const prisma_service_1 = require("../prisma.service");
-const notification_gateway_1 = require("./notification.gateway");
 let NotificationModule = class NotificationModule {
 };
 NotificationModule = __decorate([
     (0, common_1.Module)({
         controllers: [notification_controller_1.NotificationController],
-        providers: [notification_service_1.NotificationService, prisma_service_1.PrismaService, notification_gateway_1.NotificationGateway],
+        providers: [notification_service_1.NotificationService, prisma_service_1.PrismaService],
     })
 ], NotificationModule);
 exports.NotificationModule = NotificationModule;

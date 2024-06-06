@@ -1,6 +1,6 @@
 import { Service } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
-import { ServiceCreateDTO, ServiceUpdateDTO } from 'src/types';
+import { ServiceCreateDTO, ServiceUpdateDTO } from '../types';
 export declare class ServiceService {
     private readonly prismaService;
     constructor(prismaService: PrismaService);

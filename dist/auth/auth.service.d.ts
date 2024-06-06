@@ -1,6 +1,6 @@
 import { UserService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
-import { UserCreateDTO } from 'src/types';
+import { UserCreateDTO } from '../types';
 export declare class LoginDTO {
     email: string;
     password: string;

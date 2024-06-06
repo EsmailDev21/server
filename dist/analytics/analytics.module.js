@@ -10,11 +10,12 @@ exports.AnalyticsModule = void 0;
 const common_1 = require("@nestjs/common");
 const analytics_controller_1 = require("./analytics.controller");
 const prisma_service_1 = require("../prisma.service");
+const barber_analytics_controller_1 = require("./barber-analytics.controller");
 let AnalyticsModule = class AnalyticsModule {
 };
 AnalyticsModule = __decorate([
     (0, common_1.Module)({
-        controllers: [analytics_controller_1.AnalyticsController],
+        controllers: [analytics_controller_1.AnalyticsController, barber_analytics_controller_1.BarberAnalyticsController],
         providers: [prisma_service_1.PrismaService],
     })
 ], AnalyticsModule);

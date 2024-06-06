@@ -1,6 +1,6 @@
 import { UserService } from './user.service';
 import { User } from '@prisma/client';
-import { UserCreateDTO } from 'src/types';
+import { UserCreateDTO } from '../types';
 export declare class UserController {
     private readonly userService;
     constructor(userService: UserService);

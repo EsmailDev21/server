@@ -12,18 +12,12 @@ const booking_controller_1 = require("./booking.controller");
 const booking_service_1 = require("./booking.service");
 const prisma_service_1 = require("../prisma.service");
 const notification_service_1 = require("../notification/notification.service");
-const notification_gateway_1 = require("../notification/notification.gateway");
 let BookingModule = class BookingModule {
 };
 BookingModule = __decorate([
     (0, common_1.Module)({
         controllers: [booking_controller_1.BookingController],
-        providers: [
-            booking_service_1.BookingService,
-            prisma_service_1.PrismaService,
-            notification_service_1.NotificationService,
-            notification_gateway_1.NotificationGateway,
-        ],
+        providers: [booking_service_1.BookingService, prisma_service_1.PrismaService, notification_service_1.NotificationService],
     })
 ], BookingModule);
 exports.BookingModule = BookingModule;

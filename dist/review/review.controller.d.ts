@@ -1,5 +1,5 @@
 import { ReviewService } from './review.service';
-import { ReviewCreateDTO, ReviewUpdateDTO } from 'src/types';
+import { ReviewCreateDTO, ReviewUpdateDTO } from '../types';
 export declare class ReviewController {
     private readonly reviewService;
     constructor(reviewService: ReviewService);

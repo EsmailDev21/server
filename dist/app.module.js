@@ -21,6 +21,7 @@ const serve_static_1 = require("@nestjs/serve-static");
 const path = require("path");
 const analytics_module_1 = require("./analytics/analytics.module");
 const notification_module_1 = require("./notification/notification.module");
+const mongoose_1 = require("@nestjs/mongoose");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -37,6 +38,7 @@ AppModule = __decorate([
             }),
             analytics_module_1.AnalyticsModule,
             notification_module_1.NotificationModule,
+            mongoose_1.MongooseModule.forRoot(process.env.DATABASE_URL, {}),
         ],
         controllers: [],
         providers: [

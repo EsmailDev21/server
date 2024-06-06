@@ -1,10 +1,8 @@
 import { PrismaService } from 'src/prisma.service';
 import { Notification, Prisma } from '@prisma/client';
-import { NotificationGateway } from './notification.gateway';
 export declare class NotificationService {
     private prisma;
-    private notificationGateway;
-    constructor(prisma: PrismaService, notificationGateway: NotificationGateway);
+    constructor(prisma: PrismaService);
     createNotification(data: Prisma.NotificationCreateInput): Promise<Notification>;
     getNotifications(): Promise<Notification[]>;
     getNotificationById(id: string): Promise<Notification>;
