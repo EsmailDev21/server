@@ -9,6 +9,7 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { RolesGuard } from './guards/role.guard';
 import { MailingService } from 'src/mailing/mailing.service';
+import "dotenv/config"
 
 @Module({
   imports: [
