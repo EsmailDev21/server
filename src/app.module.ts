@@ -14,6 +14,7 @@ import * as path from 'path';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { NotificationModule } from './notification/notification.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { MailingModule } from './mailing/mailing.module';
 @Module({
   imports: [
     UserModule,
@@ -22,12 +23,13 @@ import { MongooseModule } from '@nestjs/mongoose';
     BookingModule,
     ReviewModule,
     StorageModule,
+    AnalyticsModule,
+    NotificationModule,
+    MailingModule,
+    MongooseModule.forRoot(process.env.DATABASE_URL, {}),
     ServeStaticModule.forRoot({
       rootPath: path.join(__dirname, '..'),
     }),
-    AnalyticsModule,
-    NotificationModule,
-    MongooseModule.forRoot(process.env.DATABASE_URL, {}),
   ],
   controllers: [],
   providers: [

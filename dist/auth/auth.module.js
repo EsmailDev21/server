@@ -17,6 +17,7 @@ const passport_1 = require("@nestjs/passport");
 const local_strategy_1 = require("./strategies/local.strategy");
 const jwt_strategy_1 = require("./strategies/jwt.strategy");
 const role_guard_1 = require("./guards/role.guard");
+const mailing_service_1 = require("../mailing/mailing.service");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
@@ -36,6 +37,7 @@ AuthModule = __decorate([
             local_strategy_1.LocalStrategy,
             jwt_strategy_1.JwtStrategy,
             role_guard_1.RolesGuard,
+            mailing_service_1.MailingService,
         ],
     })
 ], AuthModule);

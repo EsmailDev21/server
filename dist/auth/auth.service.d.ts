@@ -1,6 +1,7 @@
 import { UserService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { UserCreateDTO } from '../types';
+import { MailingService } from 'src/mailing/mailing.service';
 export declare class LoginDTO {
     email: string;
     password: string;
@@ -8,7 +9,8 @@ export declare class LoginDTO {
 export declare class AuthService {
     private readonly userService;
     private jwtService;
-    constructor(userService: UserService, jwtService: JwtService);
+    private readonly mailService;
+    constructor(userService: UserService, jwtService: JwtService, mailService: MailingService);
     signup(data: UserCreateDTO): Promise<any>;
     login(data: LoginDTO): Promise<{
         message: string;

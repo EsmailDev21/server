@@ -49,7 +49,7 @@ export class BookingService {
     }
   }
 
-  async update(data: BookingUpdateDTO, id: string): Promise<Booking> {
+  async update(data: BookingUpdateDTO, id: string): Promise<Object> {
     try {
       return await this.prismaService.booking.update({
         data,
@@ -63,7 +63,7 @@ export class BookingService {
   async changeBookingStatus(
     data: { status: ReservationStatus },
     id: string,
-  ): Promise<Booking> {
+  ): Promise<Object> {
     try {
       const booking = await this.prismaService.booking.update({
         data: data,
@@ -86,14 +86,14 @@ export class BookingService {
         );
       }
 
-      await this.sendStatusChangeNotifications(
+      const notifs = await this.sendStatusChangeNotifications(
         data.status,
         service.barber,
         customer,
         booking,
       );
 
-      return booking;
+      return booking
     } catch (error) {
       console.log(error);
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -174,6 +174,7 @@ export class BookingService {
 
       const resolvedNotifications = await Promise.all(notifications);
       console.log('Notifications sent:', resolvedNotifications);
+      return { resolvedNotifications };
     } catch (error) {
       console.error('Error sending notifications:', error);
       throw new HttpException(

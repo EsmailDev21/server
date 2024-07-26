@@ -36,6 +36,18 @@ let ServiceController = class ServiceController {
     async delete(id) {
         return this.serviceService.delete(id);
     }
+    async filterServicesBypriceRange(min, max) {
+        return this.serviceService.filterServicesBypriceRange({
+            min: parseInt(min),
+            max: parseInt(max),
+        });
+    }
+    async filterServicesByRating(rating) {
+        return this.serviceService.filterServicesByRating(parseInt(rating));
+    }
+    async filterServicesByGenders(genders) {
+        return this.serviceService.filterServicesByGenders(genders);
+    }
 };
 __decorate([
     (0, common_1.Get)(':id'),
@@ -75,6 +87,28 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ServiceController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Get)('filter/price-range'),
+    __param(0, (0, common_1.Query)('min')),
+    __param(1, (0, common_1.Query)('max')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], ServiceController.prototype, "filterServicesBypriceRange", null);
+__decorate([
+    (0, common_1.Get)('filter/rating/:rating'),
+    __param(0, (0, common_1.Param)('rating')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ServiceController.prototype, "filterServicesByRating", null);
+__decorate([
+    (0, common_1.Post)('filter/genders'),
+    __param(0, (0, common_1.Body)('genders')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Array]),
+    __metadata("design:returntype", Promise)
+], ServiceController.prototype, "filterServicesByGenders", null);
 ServiceController = __decorate([
     (0, common_1.Controller)('services'),
     __metadata("design:paramtypes", [service_service_1.ServiceService])

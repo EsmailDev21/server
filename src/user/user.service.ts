@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import { UserCreateDTO } from '../types';
-
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UserService {
   constructor(private readonly prismaService: PrismaService) {}
@@ -44,6 +44,21 @@ export class UserService {
       return error.message;
     }
   }
+  async updateUserPassword(id: string, data: string): Promise<User> {
+    try {
+      const hash = bcrypt.hashSync(data, 10);
+      const update = await this.prismaService.user.update({
+        data: {
+          password: hash,
+        },
+        where: { id },
+      });
+      return update;
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  }
   async banUser(id: string): Promise<User> {
     try {
       return await this.prismaService.user.update({
@@ -63,6 +78,19 @@ export class UserService {
       return await this.prismaService.user.update({
         data: {
           isBanned: false,
+        },
+        where: { id },
+      });
+    } catch (error) {
+      console.log(error);
+      return error.message;
+    }
+  }
+  async verifyUser(id: string): Promise<User> {
+    try {
+      return await this.prismaService.user.update({
+        data: {
+          isVerified: true,
         },
         where: { id },
       });

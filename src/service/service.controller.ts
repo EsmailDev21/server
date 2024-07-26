@@ -7,6 +7,7 @@ import {
   Param,
   Body,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { ServiceService } from './service.service';
 import {
@@ -14,7 +15,7 @@ import {
   ServiceUpdateDTO,
   ServiceResponseDTO,
 } from '../types';
-import { Role, Service } from '@prisma/client';
+import { Gender, Role, Service } from '@prisma/client';
 import { Roles } from 'src/auth/decorators/role.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/role.guard';
@@ -58,5 +59,30 @@ export class ServiceController {
   @Delete(':id')
   async delete(@Param('id') id: string): Promise<ServiceResponseDTO> {
     return this.serviceService.delete(id);
+  }
+
+  @Get('filter/price-range')
+  async filterServicesBypriceRange(
+    @Query('min') min: string,
+    @Query('max') max: string,
+  ): Promise<Service[]> {
+    return this.serviceService.filterServicesBypriceRange({
+      min: parseInt(min),
+      max: parseInt(max),
+    });
+  }
+
+  @Get('filter/rating/:rating')
+  async filterServicesByRating(
+    @Param('rating') rating: string,
+  ): Promise<Service[]> {
+    return this.serviceService.filterServicesByRating(parseInt(rating));
+  }
+
+  @Post('filter/genders')
+  async filterServicesByGenders(
+    @Body('genders') genders: Gender[],
+  ): Promise<Service[]> {
+    return this.serviceService.filterServicesByGenders(genders);
   }
 }

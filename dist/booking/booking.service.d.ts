@@ -9,10 +9,10 @@ export declare class BookingService {
     getById(id: string): Promise<Booking>;
     getMany(): Promise<Booking[]>;
     create(data: BookingCreateDTO): Promise<Booking>;
-    update(data: BookingUpdateDTO, id: string): Promise<Booking>;
+    update(data: BookingUpdateDTO, id: string): Promise<Object>;
     changeBookingStatus(data: {
         status: ReservationStatus;
-    }, id: string): Promise<Booking>;
+    }, id: string): Promise<Object>;
     private sendStatusChangeNotifications;
     delete(id: string): Promise<Booking>;
 }

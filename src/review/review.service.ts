@@ -18,6 +18,7 @@ export class ReviewService {
   async getMany(): Promise<Review[]> {
     try {
       const services = await this.prismaService.review.findMany();
+
       return services;
     } catch (error) {
       return error.message;

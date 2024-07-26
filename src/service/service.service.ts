@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Service } from '@prisma/client';
+import { Gender, Service } from '@prisma/client';
 import { PrismaService } from 'src/prisma.service';
 import {
   ServiceCreateDTO,
@@ -58,6 +58,59 @@ export class ServiceService {
         where: { id },
       });
       return service;
+    } catch (error) {
+      return error.message;
+    }
+  }
+
+  async filterServicesBypriceRange(priceRange: { min: number; max: number }) {
+    try {
+      console.log(priceRange);
+      const services = await this.prismaService.service.findMany({
+        where: {
+          price: {
+            gte: priceRange.min, //>=
+            lte: priceRange.max,//<=
+          },
+        },
+      });
+      return services;
+    } catch (error) {
+      return error.message;
+    }
+  }
+
+  async filterServicesByRating(rating: number) {
+    try {
+      const services = await this.prismaService.service.findMany({
+        where: {
+          reviews: {
+            every: {
+              rating: {
+                gte: rating,
+                
+              },
+            },
+          },
+        },
+      });
+      return services;
+    } catch (error) {
+      return error.message;
+    }
+  }
+
+  async filterServicesByGenders(genders: Gender[]) {
+
+    try {
+      const services = await this.prismaService.service.findMany({
+        where: {
+          genderType: {
+            in: genders,
+          },
+        },
+      });
+      return services;
     } catch (error) {
       return error.message;
     }

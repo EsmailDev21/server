@@ -8,8 +8,10 @@ export declare class UserService {
     getAll(): Promise<any>;
     createUser(data: UserCreateDTO): Promise<User>;
     updateUser(id: string, data: Partial<User>): Promise<User>;
+    updateUserPassword(id: string, data: string): Promise<User>;
     banUser(id: string): Promise<User>;
     unbanUser(id: string): Promise<User>;
+    verifyUser(id: string): Promise<User>;
     getByLocation(filter: {
         city?: string;
         address?: string;

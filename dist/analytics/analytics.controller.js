@@ -220,7 +220,7 @@ let AnalyticsController = class AnalyticsController {
             const bookings = await this.prisma.booking.findMany({
                 where: {
                     status: {
-                        in: ['DONE', 'CONFIRMED', 'PENDING'],
+                        in: ['DONE'],
                     },
                 },
             });

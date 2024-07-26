@@ -7,6 +7,7 @@ import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UserCreateDTO } from '../types';
+import { MailingService } from 'src/mailing/mailing.service';
 
 export class LoginDTO {
   email: string;
@@ -17,10 +18,10 @@ export class AuthService {
   /**
    *
    */
-
   constructor(
     private readonly userService: UserService,
     private jwtService: JwtService,
+    private readonly mailService: MailingService,
   ) {
     //super();
   }
@@ -33,6 +34,9 @@ export class AuthService {
         password: hash,
         ...other,
       });
+      await this.mailService.sendUserConfirmationForAccountVerification(
+        response.email,
+      );
       return response;
     } catch (error) {
       return error.message;

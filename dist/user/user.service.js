@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma.service");
+const bcrypt = require("bcrypt");
 let UserService = class UserService {
     constructor(prismaService) {
         this.prismaService = prismaService;
@@ -57,6 +58,22 @@ let UserService = class UserService {
             return error.message;
         }
     }
+    async updateUserPassword(id, data) {
+        try {
+            const hash = bcrypt.hashSync(data, 10);
+            const update = await this.prismaService.user.update({
+                data: {
+                    password: hash,
+                },
+                where: { id },
+            });
+            return update;
+        }
+        catch (error) {
+            console.log(error);
+            return error.message;
+        }
+    }
     async banUser(id) {
         try {
             return await this.prismaService.user.update({
@@ -76,6 +93,20 @@ let UserService = class UserService {
             return await this.prismaService.user.update({
                 data: {
                     isBanned: false,
+                },
+                where: { id },
+            });
+        }
+        catch (error) {
+            console.log(error);
+            return error.message;
+        }
+    }
+    async verifyUser(id) {
+        try {
+            return await this.prismaService.user.update({
+                data: {
+                    isVerified: true,
                 },
                 where: { id },
             });

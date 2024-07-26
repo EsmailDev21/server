@@ -68,6 +68,57 @@ let ServiceService = class ServiceService {
             return error.message;
         }
     }
+    async filterServicesBypriceRange(priceRange) {
+        try {
+            console.log(priceRange);
+            const services = await this.prismaService.service.findMany({
+                where: {
+                    price: {
+                        gte: priceRange.min,
+                        lte: priceRange.max,
+                    },
+                },
+            });
+            return services;
+        }
+        catch (error) {
+            return error.message;
+        }
+    }
+    async filterServicesByRating(rating) {
+        try {
+            const services = await this.prismaService.service.findMany({
+                where: {
+                    reviews: {
+                        every: {
+                            rating: {
+                                gte: rating,
+                            },
+                        },
+                    },
+                },
+            });
+            return services;
+        }
+        catch (error) {
+            return error.message;
+        }
+    }
+    async filterServicesByGenders(genders) {
+        try {
+            const services = await this.prismaService.service.findMany({
+                where: {
+                    genderType: {
+                        in: genders,
+                    },
+                },
+            });
+            return services;
+        }
+        catch (error) {
+            return error.message;
+        }
+    }
 };
 ServiceService = __decorate([
     (0, common_1.Injectable)(),

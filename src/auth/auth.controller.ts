@@ -17,7 +17,7 @@ import { UserCreateDTO } from '../types';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-
+  
   @Post('/signup')
   signup(@Body() data: UserCreateDTO) {
     return this.authService.signup(data);

@@ -7,6 +7,7 @@ import {
   Body,
   Query,
   UseGuards,
+  Patch,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Prisma, Role, User } from '@prisma/client';
@@ -26,6 +27,9 @@ export class UserController {
     return this.userService.getById(id);
   }
 
+  //@UseGuards(JwtAuthGuard)
+  ////@Roles(Role.ADMIN, Role.BARBER)
+
   ////@UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
   ////@Roles(Role.ADMIN, Role.BARBER)
@@ -43,7 +47,7 @@ export class UserController {
   }
 
   //@UseGuards(RolesGuard)
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   //@Roles(Role.ADMIN, Role.BARBER, Role.CUSTOMER)
   @Put(':id')
   async updateUser(
@@ -53,6 +57,18 @@ export class UserController {
     return this.userService.updateUser(id, data);
   }
 
+  @Patch(':id')
+  async updateUserPassword(
+    @Param('id') id: string,
+    @Body('password') data: string,
+  ): Promise<User | string> {
+    return this.userService.updateUserPassword(id, data);
+  }
+
+  @Patch('verify/:id')
+  async verifyUser(@Param('id') id: string): Promise<User | string> {
+    return this.userService.verifyUser(id);
+  }
   //@UseGuards(RolesGuard)
   //@UseGuards(JwtAuthGuard)
   //@Roles(Role.ADMIN)
@@ -72,5 +88,11 @@ export class UserController {
   ): Promise<User[] | string> {
     const filter = { city, address };
     return this.userService.getByLocation(filter);
+  }
+
+  @Get('by-email/:email')
+  async getByEmail(@Param('email') email: string): Promise<User | string> {
+    console.log(email);
+    return this.userService.findOneByEmail(email);
   }
 }

@@ -21,6 +21,7 @@ model User {
   bookings      Booking[]
   services      Service[]
   isBanned      Boolean
+  isVerified    Boolean        @default(false)
   gender        Gender
   photoUrl      String?
   notifications Notification[]

@@ -1,6 +1,6 @@
 import { ServiceService } from './service.service';
 import { ServiceCreateDTO, ServiceUpdateDTO, ServiceResponseDTO } from '../types';
-import { Service } from '@prisma/client';
+import { Gender, Service } from '@prisma/client';
 export declare class ServiceController {
     private readonly serviceService;
     constructor(serviceService: ServiceService);
@@ -9,4 +9,7 @@ export declare class ServiceController {
     create(data: ServiceCreateDTO): Promise<Service>;
     update(id: string, data: ServiceUpdateDTO): Promise<ServiceResponseDTO>;
     delete(id: string): Promise<ServiceResponseDTO>;
+    filterServicesBypriceRange(min: string, max: string): Promise<Service[]>;
+    filterServicesByRating(rating: string): Promise<Service[]>;
+    filterServicesByGenders(genders: Gender[]): Promise<Service[]>;
 }

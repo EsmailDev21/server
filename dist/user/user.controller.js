@@ -33,6 +33,12 @@ let UserController = class UserController {
     async updateUser(id, data) {
         return this.userService.updateUser(id, data);
     }
+    async updateUserPassword(id, data) {
+        return this.userService.updateUserPassword(id, data);
+    }
+    async verifyUser(id) {
+        return this.userService.verifyUser(id);
+    }
     async banUser(id) {
         return this.userService.banUser(id);
     }
@@ -42,6 +48,10 @@ let UserController = class UserController {
     async getByLocation(city, address) {
         const filter = { city, address };
         return this.userService.getByLocation(filter);
+    }
+    async getByEmail(email) {
+        console.log(email);
+        return this.userService.findOneByEmail(email);
     }
 };
 __decorate([
@@ -68,7 +78,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "createUser", null);
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
@@ -76,6 +85,21 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "updateUser", null);
+__decorate([
+    (0, common_1.Patch)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)('password')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "updateUserPassword", null);
+__decorate([
+    (0, common_1.Patch)('verify/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "verifyUser", null);
 __decorate([
     (0, common_1.Put)(':id/ban'),
     __param(0, (0, common_1.Param)('id')),
@@ -98,6 +122,13 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "getByLocation", null);
+__decorate([
+    (0, common_1.Get)('by-email/:email'),
+    __param(0, (0, common_1.Param)('email')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getByEmail", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

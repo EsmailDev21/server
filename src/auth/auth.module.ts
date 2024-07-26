@@ -8,6 +8,7 @@ import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { RolesGuard } from './guards/role.guard';
+import { MailingService } from 'src/mailing/mailing.service';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { RolesGuard } from './guards/role.guard';
     LocalStrategy,
     JwtStrategy,
     RolesGuard,
+    MailingService,
   ],
 })
 export class AuthModule {}

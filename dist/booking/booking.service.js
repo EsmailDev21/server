@@ -84,7 +84,7 @@ let BookingService = class BookingService {
             if (!service || !service.barber || !customer) {
                 throw new common_1.HttpException('Service or related users not found', common_1.HttpStatus.NOT_FOUND);
             }
-            await this.sendStatusChangeNotifications(data.status, service.barber, customer, booking);
+            const notifs = await this.sendStatusChangeNotifications(data.status, service.barber, customer, booking);
             return booking;
         }
         catch (error) {
@@ -147,6 +147,7 @@ let BookingService = class BookingService {
             }
             const resolvedNotifications = await Promise.all(notifications);
             console.log('Notifications sent:', resolvedNotifications);
+            return { resolvedNotifications };
         }
         catch (error) {
             console.error('Error sending notifications:', error);

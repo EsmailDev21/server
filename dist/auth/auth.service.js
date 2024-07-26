@@ -25,13 +25,15 @@ const common_1 = require("@nestjs/common");
 const user_service_1 = require("../user/user.service");
 const bcrypt = require("bcrypt");
 const jwt_1 = require("@nestjs/jwt");
+const mailing_service_1 = require("../mailing/mailing.service");
 class LoginDTO {
 }
 exports.LoginDTO = LoginDTO;
 let AuthService = class AuthService {
-    constructor(userService, jwtService) {
+    constructor(userService, jwtService, mailService) {
         this.userService = userService;
         this.jwtService = jwtService;
+        this.mailService = mailService;
     }
     async signup(data) {
         try {
@@ -39,6 +41,7 @@ let AuthService = class AuthService {
             const salt = bcrypt.genSaltSync(10);
             const hash = bcrypt.hashSync(password, salt);
             const response = await this.userService.createUser(Object.assign({ password: hash }, other));
+            await this.mailService.sendUserConfirmationForAccountVerification(response.email);
             return response;
         }
         catch (error) {
@@ -77,7 +80,8 @@ let AuthService = class AuthService {
 AuthService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [user_service_1.UserService,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        mailing_service_1.MailingService])
 ], AuthService);
 exports.AuthService = AuthService;
 //# sourceMappingURL=auth.service.js.map

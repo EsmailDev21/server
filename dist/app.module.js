@@ -22,6 +22,7 @@ const path = require("path");
 const analytics_module_1 = require("./analytics/analytics.module");
 const notification_module_1 = require("./notification/notification.module");
 const mongoose_1 = require("@nestjs/mongoose");
+const mailing_module_1 = require("./mailing/mailing.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -33,12 +34,13 @@ AppModule = __decorate([
             booking_module_1.BookingModule,
             review_module_1.ReviewModule,
             storage_module_1.StorageModule,
+            analytics_module_1.AnalyticsModule,
+            notification_module_1.NotificationModule,
+            mailing_module_1.MailingModule,
+            mongoose_1.MongooseModule.forRoot(process.env.DATABASE_URL, {}),
             serve_static_1.ServeStaticModule.forRoot({
                 rootPath: path.join(__dirname, '..'),
             }),
-            analytics_module_1.AnalyticsModule,
-            notification_module_1.NotificationModule,
-            mongoose_1.MongooseModule.forRoot(process.env.DATABASE_URL, {}),
         ],
         controllers: [],
         providers: [
