@@ -74,6 +74,7 @@ export class StorageController {
           },
         },
       );
+      console.log({ response });
 
       // Delete the file from the uploads folder after the upload
       fs.unlinkSync(filePath);
