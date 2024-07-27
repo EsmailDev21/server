@@ -51,6 +51,7 @@ export class StorageController {
     @Req() req: Request,
   ) {
     try {
+      console.log({ file });
       // Read the file from the uploads folder
       const filePath = path.join(__dirname, '../../uploads', file.filename);
       const fileStream = fs.createReadStream(filePath);
@@ -61,6 +62,7 @@ export class StorageController {
         filename: file.originalname,
         contentType: file.mimetype,
       });
+      console.log({ form });
 
       // Make a POST request to the Express API
       const response = await axios.default.post(
