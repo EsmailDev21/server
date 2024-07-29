@@ -81,7 +81,7 @@ export class StorageController {
 
       // Send the response from the Express API back to the client
       console.log(response.data);
-      return res.send(response.data.fileLocation);
+      return res.send(response.data.url);
     } catch (error) {
       return res.status(500).send({ error: error.message });
     }
