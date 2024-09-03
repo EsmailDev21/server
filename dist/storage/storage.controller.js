@@ -15,8 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.StorageController = exports.imageFileFilter = exports.editFileName = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
+const axios = require("axios");
+const FormData = require("form-data");
 const multer_1 = require("multer");
 const path = require("path");
+const fs = require("fs");
 const editFileName = (req, file, callback) => {
     const name = file.originalname.split('.')[0];
     const fileExtName = path.extname(file.originalname);
@@ -28,7 +31,7 @@ const editFileName = (req, file, callback) => {
 };
 exports.editFileName = editFileName;
 const imageFileFilter = (req, file, callback) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF)$/)) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF|WEBP)$/)) {
         return callback(new Error('Only image files are allowed!'), false);
     }
     callback(null, true);
@@ -37,30 +40,39 @@ exports.imageFileFilter = imageFileFilter;
 let StorageController = class StorageController {
     constructor() { }
     async uploadFile(file, res, req) {
-        const fileUrl = `${req.protocol}://${req.get('host')}/public/img/${file.filename}`;
-        return res.send({
-            message: 'File uploaded successfully',
-            url: fileUrl,
-        });
+        try {
+            console.log({ file });
+            const filePath = path.join(__dirname, '../../uploads', file.filename);
+            const fileStream = fs.createReadStream(filePath);
+            const form = new FormData();
+            form.append('file', fileStream, {
+                filename: file.originalname,
+                contentType: file.mimetype,
+            });
+            console.log({ form });
+            const response = await axios.default.post('https://utility-apis.onrender.com/api/upload', form, {
+                headers: Object.assign({}, form.getHeaders()),
+            });
+            console.log({ response });
+            fs.unlinkSync(filePath);
+            console.log(response.data);
+            return res.send(response.data);
+        }
+        catch (error) {
+            return res.status(500).send({ error: error.message });
+        }
     }
 };
 __decorate([
     (0, common_1.Post)('upload'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', {
         storage: (0, multer_1.diskStorage)({
-            destination: 'public/img',
-            filename: (req, file, cb) => {
-                cb(null, file.originalname);
-            },
+            destination: 'uploads',
+            filename: exports.editFileName,
         }),
         fileFilter: exports.imageFileFilter,
     })),
-    __param(0, (0, common_1.UploadedFile)(new common_1.ParseFilePipe({
-        validators: [
-            new common_1.MaxFileSizeValidator({ maxSize: 15000000 }),
-            new common_1.FileTypeValidator({ fileType: /image\/(jpeg|png)/ }),
-        ],
-    }))),
+    __param(0, (0, common_1.UploadedFile)()),
     __param(1, (0, common_1.Res)()),
     __param(2, (0, common_1.Req)()),
     __metadata("design:type", Function),

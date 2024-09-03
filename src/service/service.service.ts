@@ -55,6 +55,7 @@ export class ServiceService {
   async delete(id: string) {
     try {
       const service = await this.prismaService.service.delete({
+        
         where: { id },
       });
       return service;

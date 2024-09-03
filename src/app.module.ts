@@ -15,6 +15,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { NotificationModule } from './notification/notification.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MailingModule } from './mailing/mailing.module';
+import { ReportsModule } from './reports/reports.module';
 @Module({
   imports: [
     UserModule,
@@ -30,6 +31,7 @@ import { MailingModule } from './mailing/mailing.module';
     ServeStaticModule.forRoot({
       rootPath: path.join(__dirname, '..'),
     }),
+    ReportsModule,
   ],
   controllers: [],
   providers: [
