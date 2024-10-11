@@ -22,13 +22,15 @@ export class MailingService {
   }
   async sendUserConfirmationForPasswordChange(email: string): Promise<Object> {
     console.log(this.token);
-    return await this.mailerService.sendMail({
+    const res =  await this.mailerService.sendMail({
       to: email,
       from: 'barbershop@trial-jy7zpl9x6r3l5vx6.mlsender.net', // override default from
       subject: 'Reset Password',
       text:
         'Please enter this code to reset your password' + this.generateToken(),
     });
+    console.log(res)
+    return res;
   }
 
   async sendUserConfirmationForAccountVerification(
