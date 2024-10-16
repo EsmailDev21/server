@@ -11,8 +11,8 @@ import 'dotenv/config';
         port: 587,
 
         auth: {
-          user: process.env.MAILING_USER,
-          pass: process.env.MAILING_MDP,
+          user: "MS_vCBMr8@trial-neqvygm229540p7w.mlsender.net",
+          pass: "IRHHrsxCPNF3U3Im",
         },
         tls: {
           // Do not fail on invalid certs
