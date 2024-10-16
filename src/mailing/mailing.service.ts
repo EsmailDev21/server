@@ -15,7 +15,7 @@ export class MailingService {
   ): Promise<Object> {
     return await this.mailerService.sendMail({
       to: email,
-      from: 'ms_vcbmr8@trial-neqvygm229540p7w.mlsender.net', // override default from
+      from: 'MS_vCBMr8@trial-neqvygm229540p7w.mlsender.net', // override default from
       subject,
       text: content,
     });
@@ -24,7 +24,7 @@ export class MailingService {
     console.log(this.token);
     const res =  await this.mailerService.sendMail({
       to: email,
-      from: 'ms_vcbmr8@trial-neqvygm229540p7w.mlsender.net', // override default from
+      from: 'MS_vCBMr8@trial-neqvygm229540p7w.mlsender.net', // override default from
       subject: 'Reset Password',
       text:
         'Please enter this code to reset your password' + this.generateToken(),
@@ -38,7 +38,7 @@ export class MailingService {
   ): Promise<Object> {
     return await this.mailerService.sendMail({
       to: email,
-      from: 'ms_vcbmr8@trial-neqvygm229540p7w.mlsender.net', // override default from
+      from: 'MS_vCBMr8@trial-neqvygm229540p7w.mlsender.net', // override default from
       subject: 'Verify your account',
       text:
         'Please enter this code to verify your account' + this.generateToken(),
